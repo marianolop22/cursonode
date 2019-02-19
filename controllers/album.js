@@ -23,10 +23,6 @@ function getAlbum(req, res) {
             }
         }
     });
-
-
-
-
 }
 
 
@@ -128,91 +124,83 @@ function updateAlbum(req, res) {
 }
 
 
-// function deleteArtist(req, res) {
+function deleteAlbum(req, res) {
 
-//     var artistId = req.params.id;
+    var albumId = req.params.id;
 
-//     Artist.findOneAndDelete({ _id: artistId }, (err, artist) => {
+    Album.findOneAndDelete({ _id: albumId }, (err, album) => {
 
-//         if (err) {
-//             res.status(500).send({ message: 'Error en la peticion' });
-//         } else {
-//             if (!artist) {
-//                 res.status(404).send({ message: 'error al borrar artista' })
-//             } else {
-//                 //return res.status(200).send({ artist });
-
-//                 Album.find({ artist: artistId }).remove((err, album) => {
-
-//                     if (err) {
-//                         res.status(500).send({ message: 'Error en la peticion' });
-//                     } else {
-//                         if (!album) {
-//                             res.status(404).send({ message: 'error al borrar album' })
-//                         } else {
-//                             Song.find({ album: album._id }).remove((err, song) => {
-//                                 if (err) {
-//                                     res.status(500).send({ message: 'Error en la peticion' });
-//                                 } else {
-//                                     if (!song) {
-//                                         res.status(404).send({ message: 'error al borrar cancion artista' })
-//                                     } else {
-//                                         return res.status(200).send({ artist, album, song });
-//                                     }
-//                                 }
-//                             });
-//                         }
-//                     }
-//                 });
-//             }
-//         }
-//     });
-// }
+        if (err) {
+            res.status(500).send({ message: 'Error en la peticion' });
+        } else {
+            if (!album) {
+                res.status(404).send({ message: 'error al borrar album' })
+            } else {
+                //return res.status(200).send({ artist });
+                Song.find({ album: albumId }).remove((err, song) => {
+                    if (err) {
+                        res.status(500).send({ message: 'Error en la peticion' });
+                    } else {
+                        if (!song) {
+                            res.status(404).send({ message: 'error al borrar cancion artista' })
+                        } else {
+                            return res.status(200).send({ album, song });
+                        }
+                    }
+                });
+            }
+        }
+    });
+}
 
 
-// function updloadImage(req, res) {
+function updloadImage(req, res) {
 
-//     var artistId = req.params.id;
-//     var file_name = 'No subido.....';
+    var albumId = req.params.id;
+    var file_name = 'No subido.....';
 
-//     if (req.files) {
+    if (req.files) {
 
-//         var file_path = req.files.image.path;
-//         file_name = file_path.split('\\')[2];
+        var file_path = req.files.image.path;
+        file_name = file_path.split('\\')[2];
 
-//         Artist.findOneAndUpdate({ _id: artistId }, { image: file_name }, (err, artist) => {
+        Album.findOneAndUpdate({ _id: albumId }, { image: file_name }, (err, album) => {
 
-//             if (err) {
-//                 res.status(500).send({ message: 'error al actualizar' });
-//             } else {
-//                 if (!artist) {
-//                     res.status(404).send({ message: 'error en actualizar' });
-//                 } else {
-//                     res.status(200).send({ message: 'actualizado bien' });
-//                 }
-//             }
-//         })
-//     } else {
-//         res.status(200).send({ message: 'no has subido arhivo' });
-//     }
-// }
+            if (err) {
+                res.status(500).send({ message: 'error al actualizar' });
+            } else {
+                if (!album) {
+                    res.status(404).send({ message: 'error en actualizar' });
+                } else {
+                    res.status(200).send({ message: 'actualizado bien' });
+                }
+            }
+        })
+    } else {
+        res.status(200).send({ message: 'no has subido arhivo' });
+    }
+}
 
 
-// function getImageFile(req, res) {
+function getImageFile(req, res) {
 
-//     var imageFile = req.params.imageFile;
+    var imageFile = req.params.imageFile;
 
-//     fs.exists('./uploads/artists/' + imageFile, (exists) => {
-//         if (exists) {
-//             res.sendFile(path.resolve('./uploads/artists/' + imageFile));
-//         } else {
-//             res.status(404).send({ message: 'no existe el archivo' });
-//         }
-//     })
-// }
+    fs.exists('./uploads/albums/' + imageFile, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve('./uploads/albums/' + imageFile));
+        } else {
+            res.status(404).send({ message: 'no existe el archivo' });
+        }
+    })
+}
 
 module.exports = {
     getAlbum,
     saveAlbum,
-    getAlbums
+    getAlbums,
+    updateAlbum,
+    deleteAlbum,
+    updloadImage,
+    getImageFile
 };
