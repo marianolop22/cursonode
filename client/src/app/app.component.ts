@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client';
+  
+  public title = 'Musify';
+  public user: User;
+  public identity=false; //comprobar datos del user logueado
+  public token;
+
+  constructor () {
+    this.user = new User('','','','','','ROLE_USER','');
+  }
+
+  public onSubmit () {
+
+    console.log ( this.user );
+  }
+
+
 }
