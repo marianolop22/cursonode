@@ -127,7 +127,7 @@ function updloadImage(req, res) {
                 if (!user) {
                     res.status(404).send({ message: 'error en actualizar' });
                 } else {
-                    res.status(200).send({ message: 'actualizado bien' });
+                    res.status(200).send({ image: file_name, user });
                 }
             }
         })
