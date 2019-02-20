@@ -22,17 +22,4 @@ export class User {
 
     }
 
-    public get ( getHash:boolean) {
-
-        return {
-            _id: this._id,
-            name: this.name,
-            surname: this.surname,
-            email: this.email,
-            password: this.password,
-            role: this.role,
-            image: this.image,
-            gethash: getHash
-        };
-    }
 }

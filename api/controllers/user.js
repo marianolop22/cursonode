@@ -67,16 +67,10 @@ function loginUser(req, res) {
                 bcrypt.compare(password, user.password, (err, check) => {
 
                     if (check) {
-                        //devolver los datos del usuario logueado
-                        if (params.gethash) {
-                            //devolver un token de jwt
-                            res.status(200).send({
-                                token: jwt.createToken(user)
-                            });
-                        } else {
-
-                            res.status(200).send(user);
-                        }
+                        var token = jwt.createToken(user);
+                        res.setHeader('Authorization', token);
+                        user.password = null;
+                        res.status(200).send(user);
 
                     } else {
                         res.status(404).send({ message: 'contrasela incorrecta' });

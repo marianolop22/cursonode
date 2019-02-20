@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { UserService } from './services/user.service';
 
@@ -9,7 +9,7 @@ import { HttpErrorResponse } from "@angular/common/http";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   
   public title = 'Musify';
   public user: User;
@@ -21,14 +21,19 @@ export class AppComponent {
     this.user = new User('','','','','','ROLE_USER','');
   }
 
+  public ngOnInit () {
+    this.identity = this._user.getIndentity ();
+    this.token = this._user.getToken ();
+  }
+
   public onSubmit () {
 
-    this._user.login (this.user, false).subscribe ( (response:User) => {
+    this._user.login (this.user).subscribe ( (response:User) => {
 
+      localStorage.setItem ('identity', JSON.stringify ( response ) ) ;
       this.identity = response;
 
     }, (error:HttpErrorResponse) => {
-      console.log (error);
       this.errorMessage = error.error.message  ;
       
     })
