@@ -6,8 +6,13 @@
             <h1>Identificate</h1>
 
             <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-6 pl-0" novalidate>
+                <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                    <span class="alert-heading">{{errorMessage}}</span>
+
+                </div>
                 <p>
                     <label>Correo Electronico</label>
+
                     <input #email="ngModel" name="email" [(ngModel)]="user.email" type="text" class="form-control" required>
                     <span class="text-danger" *ngIf="!email.valid && email.touched">
                         El email es obligatorio

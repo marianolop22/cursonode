@@ -75,7 +75,7 @@ function loginUser(req, res) {
                             });
                         } else {
 
-                            res.status(200).send({ message: 'login existoso', user });
+                            res.status(200).send(user);
                         }
 
                     } else {

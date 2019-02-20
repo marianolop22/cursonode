@@ -1,15 +1,15 @@
 'use strict'
 
-var mongoose = require ('mongoose');
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserSchema = Schema( {
+var UserSchema = Schema({
     name: String,
     surname: String,
-    email: String,
+    email: { type: String, index: { unique: true } },
     password: String,
     role: String,
     image: String
-} );
+});
 
-module.exports = mongoose.model ('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
