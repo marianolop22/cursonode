@@ -13,12 +13,16 @@ export class AppComponent implements OnInit{
   
   public title = 'Musify';
   public user: User;
+  public register: User;
   public identity: User; //comprobar datos del user logueado
   public token;
   public errorMessage;
+  public registerSuccess: boolean = false;
+  public registerError: string;
 
   constructor ( public _user:UserService ) {
     this.user = new User('','','','','','ROLE_USER','');
+    this.register = new User('','','','','','ROLE_USER','');
   }
 
   public ngOnInit () {
@@ -32,6 +36,10 @@ export class AppComponent implements OnInit{
 
       localStorage.setItem ('identity', JSON.stringify ( response ) ) ;
       this.identity = response;
+      this.user = new User('','','','','','ROLE_USER','');
+      this.registerSuccess = false;
+      this.registerError = null;
+  
 
     }, (error:HttpErrorResponse) => {
       this.errorMessage = error.error.message  ;
@@ -39,5 +47,27 @@ export class AppComponent implements OnInit{
     })
   }
 
+  public logOut () {
+    localStorage.clear();
+    this.identity = null;
+    this.token = null;
+
+  }
+
+  public registerUser () {
+
+    this.registerSuccess = false;
+    this.registerError = null;
+
+    this._user.register( this.register).subscribe ( response => {
+      console.log ( response );
+
+      this.registerSuccess = true;
+      this.register = new User('','','','','','ROLE_USER','');
+
+    }, (error:HttpErrorResponse) => {
+      this.registerError = error.error.message  ;
+    })
+  }
 
 }

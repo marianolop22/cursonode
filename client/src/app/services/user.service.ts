@@ -16,6 +16,14 @@ export class UserService {
     return  this.http.post (`${environment.url}/user/login`, user, {observe:'body'}).pipe();
   }
 
+  public register ( user:User ):Observable<any> {
+    return this.http.post(`${environment.url}/user/register`, user, {observe:'body'}).pipe();
+  }
+
+  public update ( user:User ):Observable<any> {
+    return this.http.put(`${environment.url}/user/update-user/${user._id}`, user, {observe:'body'}).pipe();
+  }
+
   getIndentity() {
     if ( localStorage.getItem ('identity')) {
       return JSON.parse ( localStorage.getItem ('identity') );

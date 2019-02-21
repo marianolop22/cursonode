@@ -11,7 +11,6 @@ export class User {
     ) {}
 
     public set ( user:User) {
-        
         this._id = user._id;
         this.name = user.name;
         this.surname = user.surname;
@@ -19,7 +18,6 @@ export class User {
         this.password = user.password;
         this.role = user.role;
         this.image = user.image;
-
     }
 
 }

@@ -28,27 +28,35 @@
         <div class="col-lg-6">
             <h1>Registrate</h1>
 
-            <form class="col-md-6 pl-0">
+            <form class="col-md-6 pl-0" #registerForm="ngForm" (ngSubmit)="registerUser()">
                 <p>
                     <label>Nombre</label>
-                    <input #firstName="ngModel" name="firstName" [(ngModel)]="user.name" type="text" class="form-control" required>
+                    <input #firstName="ngModel" name="firstName" [(ngModel)]="register.name" type="text" class="form-control" required>
                 </p>
 
                 <p>
                     <label>Apellidos</label>
-                    <input #surname="ngModel" name="surname" [(ngModel)]="user.surname" type="text" class="form-control" required>
+                    <input #surname="ngModel" name="surname" [(ngModel)]="register.surname" type="text" class="form-control" required>
                 </p>
 
                 <p>
                     <label>Correo Electronico</label>
-                    <input #emailreg="ngModel" name="emailreg" [(ngModel)]="user.email" type="text" class="form-control" required>
+                    <input #emailreg="ngModel" name="emailreg" [(ngModel)]="register.email" type="text" class="form-control" required>
                 </p>
 
                 <p>
                     <label>Password</label>
-                    <input #passwordreg="ngModel" name="passwordreg" [(ngModel)]="user.password" type="password" class="form-control" required>
+                    <input #passwordreg="ngModel" name="passwordreg" [(ngModel)]="register.password" type="password" class="form-control" required>
                 </p>
                 <input type="submit" value="Registrarse" class="btn btn-primary">
+
+                <div *ngIf="registerSuccess" class="alert alert-primary mt-2" role="alert">
+                    Registro correcto
+                </div>
+                <div *ngIf="registerError" class="alert alert-danger mt-2" role="alert">
+                    {{registerError}}
+                </div>
+
             </form>
 
 
@@ -64,6 +72,13 @@
         <h1>
             {{ title }}
         </h1>
+        <span>
+            {{identity.name}}
+        </span>
+        <span class="btn btn-warning" (click)="logOut()">
+            Cerrar sesión
+        </span>
+
     </div>
     <div class="clearfix"></div>
     <div class="navigation col-lg-11">

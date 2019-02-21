@@ -7,10 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserService } from './services/user.service';
 import { AuthInterceptor } from './interceptors/auth.service';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

@@ -29,15 +29,15 @@ function saveUser(req, res) {
             user.password = hash;
             if (user.name != null && user.surname != null && user.email != null) {
                 //guardar el usuario
-                user.save((err, response) => {
+                user.save((err, user) => {
 
                     if (err) {
                         res.status(500).send({ message: 'Error al guardar el usuario ' + err });
                     } else {
-                        if (!response) {
+                        if (!user) {
                             res.status(404).send({ message: 'Error al guardad el usuario' });
                         } else {
-                            res.status(200).send({ user: response });
+                            res.status(200).send(user);
                         }
                     }
                 });
