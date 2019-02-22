@@ -10,7 +10,18 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  constructor( private http: HttpClient ) { }
+  private randomNumber: number;
+
+  constructor( private http: HttpClient ) { 
+    
+    this.randomNumber = Math.floor(Math.random() * 11000)
+    console.log ("constructor", this.randomNumber);
+
+  }
+
+  public showRandom () {
+    console.log ("show", this.randomNumber);
+  }
 
   public login( user:User ):Observable<any> {
     return  this.http.post (`${environment.url}/user/login`, user, {observe:'body'}).pipe();

@@ -12,4 +12,7 @@ var UserSchema = Schema({
     image: String
 });
 
+//UserSchema.index({ name: 1, surname: 1 }, { unique: true });
+
+
 module.exports = mongoose.model('User', UserSchema);
